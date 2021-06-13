@@ -46,7 +46,7 @@ class Player{
 }
 
 class Asteroid{
-    constructor(x,y,movingX=-8,movingY=0){
+    constructor(x,y,movingX=-4,movingY=0){
         this.x = x;
         this.y = y;
         this.movingX = movingX;
