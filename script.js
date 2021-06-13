@@ -112,5 +112,5 @@ function game() {
 
 }
 setup()
-let start = setInterval(game)
+let start = setInterval(game,3)
 body.addEventListener('keydown',(e) => {player.move(e)})
