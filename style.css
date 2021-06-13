@@ -1,0 +1,45 @@
+body {
+    height: 100vh;
+    width: 100vw;
+    margin: 0;
+    padding: 0;
+    background-image: url('./images/space.png');
+    background-size: contain;
+    background-repeat: repeat;
+    animation: space 3s linear infinite;
+    /* animation-duration: 3s;
+    animation-iteration-count: infinite; */
+}
+
+@keyframes space {
+    from {background-position: 0 0;}
+    to {background-position: -750px 0;}
+}
+
+
+.ship {
+    width: 150px;
+    height: 100px;
+    position: absolute;
+    background-image: url('./images/spaceship.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+ }
+
+ .asteroid {
+    width: 150px;
+    height: 100px;
+    position: absolute;
+    background-image: url('./images/asteroid.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+ }
+
+ .over {
+     font-size: 4rem;
+     color: white;
+     position: absolute;
+     visibility: hidden;
+    top: 200px;
+    left: 300px
+    }
