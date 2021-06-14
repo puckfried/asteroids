@@ -5,6 +5,7 @@ let player;
 let timer = 0
 let repeater;
 let counter=0;
+let points = 0;
 
 class Player{
     constructor(x,y) {
@@ -75,6 +76,7 @@ class Asteroid{
     remove(){
         let tmp = body.querySelector(`.id_${this.id}`)
         tmp.parentNode.removeChild(tmp)
+        points += 1
         asteroidArr.shift()
        }
 
@@ -88,11 +90,21 @@ function setup(){
         player = new Player(150,150)
         player.render()
     }
-    if (asteroidArr.length < 4){
-        counter++
-        let asteroid = new Asteroid(1400,Math.floor(Math.random()*(document.body.clientHeight)),counter)
-        asteroid.create()
-    }    
+    if (points < 6){
+        if (asteroidArr.length < 4){
+            counter++
+            let asteroid = new Asteroid(document.body.clientWidth,Math.floor(Math.random()*(document.body.clientHeight)),counter)
+            asteroid.create()
+        }    
+    }
+    if (points > 6){
+        if (asteroidArr.length < 8){
+            counter++
+            let asteroid = new Asteroid(document.body.clientWidth,Math.floor(Math.random()*(document.body.clientHeight)),counter,-10)
+            asteroid.create()
+        }    
+    }
+
 }
 
 
@@ -113,7 +125,9 @@ timer++
             if (element.y <= (player.y+100) && element.y+100 >=(player.y) ){
             cancelAnimationFrame(repeater)
             repeater = false;
+            body.querySelector('.over').textContent = `GAME OVER - you passed ${points} asteroids`
             body.querySelector('.over').style.visibility = 'visible'
+            
             }
            }
      })
