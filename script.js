@@ -4,7 +4,7 @@ let playerArr =[]
 let player;
 let asteroid;
 let timer = 0
-
+let repeater;
 
 class Player{
     constructor(x,y) {
@@ -46,7 +46,7 @@ class Player{
 }
 
 class Asteroid{
-    constructor(x,y,movingX=-4,movingY=0){
+    constructor(x,y,movingX=-6,movingY=0){
         this.x = x;
         this.y = y;
         this.movingX = movingX;
@@ -104,12 +104,16 @@ function game() {
             }
         if (element.x <= (player.x+150) && element.x >= player.x){
             if (element.y <= (player.y+100) && element.y+100 >=(player.y) ){
-             clearInterval(start)
+            cancelAnimationFrame(repeater)
+            repeater = false;
             body.querySelector('.over').style.visibility = 'visible'
             }
            }
      })
-requestAnimationFrame(game)
+if (repeater != false){
+    repeater = requestAnimationFrame(game)
+}
+     
 }
 setup()
 game()
