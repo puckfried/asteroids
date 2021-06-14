@@ -46,7 +46,7 @@ class Player{
 }
 
 class Asteroid{
-    constructor(x,y,movingX=-1,movingY=0){
+    constructor(x,y,movingX=-4,movingY=0){
         this.x = x;
         this.y = y;
         this.movingX = movingX;
@@ -109,8 +109,9 @@ function game() {
             }
            }
      })
-
+requestAnimationFrame(game)
 }
 setup()
-let start = setInterval(game,1300)
+game()
+// let start = setInterval(game,1300)
 body.addEventListener('keydown',(e) => {player.move(e)})
