@@ -6,6 +6,7 @@ let timer = 0
 let repeater;
 let counter=0;
 let points = 0;
+let start = false
 
 class Player{
     constructor(x,y) {
@@ -84,12 +85,15 @@ class Asteroid{
 }
 
 
-function setup(){
 
+function setup(){
+//create player
     if (playerArr.length === 0){
         player = new Player(150,150)
         player.render()
     }
+   
+//create astroids easy level
     if (points < 6){
         if (asteroidArr.length < 4){
             counter++
@@ -97,6 +101,7 @@ function setup(){
             asteroid.create()
         }    
     }
+//create asteroids harder level (faster and more)
     if (points > 6){
         if (asteroidArr.length < 8){
             counter++
@@ -110,11 +115,15 @@ function setup(){
 
 
 function game() {
-timer++
- if(timer===300) {
+
+if (start === true){
+//timer for creating new ateroids
+ timer++
+ if(timer >= 300) {
         timer=0
-        setup()
- }
+        setup()}
+
+ //the moving & collission control of the asteroids       
  asteroidArr.forEach(element => {
     element.move()
         if (element.x <= 0) {
@@ -135,9 +144,16 @@ timer++
 if (repeater != false){
     repeater = requestAnimationFrame(game)
 }
-     
+}     
 }
+
+// initial setup and start
+
+
 setup()
 game()
-// let start = setInterval(game,1300)
 body.addEventListener('keydown',(e) => {player.move(e)})
+body.addEventListener('keydown', (e) => {if (e.key === 'Enter'){
+    body.querySelector('.start').style.visibility = 'hidden';
+    start=true
+    game()} })

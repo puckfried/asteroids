@@ -35,11 +35,23 @@ body {
     background-repeat: no-repeat;
  }
 
+.start {
+    
+      font-size: 3rem;
+       color: white;
+       position: absolute;
+       top: 200px;
+       left: 500px;
+       visibility: visible;
+       width: 500px;
+      }
+
+
  .over {
      font-size: 4rem;
      color: white;
      position: absolute;
      visibility: hidden;
-    top: 200px;
-    left: 300px
+     top: 200px;
+     left: 300px
     }
