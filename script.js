@@ -2,14 +2,15 @@ let body = document.querySelector('body')
 let asteroidArr =[]
 let playerArr =[]
 let player;
-let asteroid;
 let timer = 0
 let repeater;
+let counter=0;
 
 class Player{
     constructor(x,y) {
         this.x = x;
         this.y = y
+        
         playerArr.push(this)
     }
     render(){
@@ -46,9 +47,10 @@ class Player{
 }
 
 class Asteroid{
-    constructor(x,y,movingX=-6,movingY=0){
+    constructor(x,y,counter,movingX=-6,movingY=0){
         this.x = x;
         this.y = y;
+        this.id = counter
         this.movingX = movingX;
         this.movingY = movingY
         asteroidArr.push(this)
@@ -56,14 +58,14 @@ class Asteroid{
 
     create(){
         let tmp = document.createElement('div');
-        tmp.classList.add('asteroid')
+        tmp.classList.add(`asteroid`,`id_${this.id}`)
         tmp.style.left = `${this.x}px`;
         tmp.style.top =`${this.y}px`;
         body.appendChild(tmp)
     }
 
     move() {
-        let tmp = body.querySelector('.asteroid')
+        let tmp = body.querySelector(`.id_${this.id}`)
         if (this.x >= 0){
             this.x += this.movingX;
             tmp.style.left = `${this.x}px`;
@@ -71,9 +73,9 @@ class Asteroid{
     } 
 
     remove(){
-        let tmp = body.querySelector('.asteroid')
+        let tmp = body.querySelector(`.id_${this.id}`)
         tmp.parentNode.removeChild(tmp)
-        asteroidArr.length=0;
+        asteroidArr.shift()
        }
 
 
@@ -81,13 +83,14 @@ class Asteroid{
 
 
 function setup(){
+
     if (playerArr.length === 0){
         player = new Player(150,150)
         player.render()
     }
-    if (asteroidArr.length === 0){
-        asteroid = null;
-        asteroid = new Asteroid(1400,Math.floor(Math.random()*(document.body.clientHeight)))
+    if (asteroidArr.length < 4){
+        counter++
+        let asteroid = new Asteroid(1400,Math.floor(Math.random()*(document.body.clientHeight)),counter)
         asteroid.create()
     }    
 }
@@ -95,9 +98,13 @@ function setup(){
 
 
 function game() {
-
-    asteroidArr.forEach(element => {
-        element.move()
+timer++
+ if(timer===300) {
+        timer=0
+        setup()
+ }
+ asteroidArr.forEach(element => {
+    element.move()
         if (element.x <= 0) {
             element.remove()
             setup()
@@ -110,6 +117,7 @@ function game() {
             }
            }
      })
+//start the animation again
 if (repeater != false){
     repeater = requestAnimationFrame(game)
 }
